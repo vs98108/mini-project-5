@@ -197,7 +197,6 @@ jupyter notebook CNN_Image_Classifier.ipynb
 mini-project-5/
 │
 ├── CNN_Image_Classifier.ipynb
-├── MP5_Kanamugire_Malik.pdf
 └── README.md
 
 ---
