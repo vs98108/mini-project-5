@@ -1,228 +1,320 @@
-#  Mini Project 5 – CNN Image Classifier  
-**COMP-9130 – Applied Artificial Intelligence**  
-**Group 9: Aristide Kanamugire & Vibhor Malik**  
-**Dataset Option B: Forest Fire, Smoke & Non-Fire Classification**
+Mini Project 5 – CNN Image Classifier
 
----
+Course: COMP-9130 – Applied Artificial Intelligence
+Group 9: Aristide Kanamugire & Vibhor Malik
+Dataset Option B: Forest Fire, Smoke & Non-Fire Classification
 
-## 📌 Project Overview
+🔗 GitHub Repository:
+https://github.com/vs98108/mini-project-5
 
-This project builds a Convolutional Neural Network (CNN) from scratch to classify forest-related images into three categories:
+1️⃣ Problem Description & Motivation
 
-- 🔥 Fire  
-- 🌫 Smoke  
-- 🌲 Non-Fire  
+Forest fires cause severe environmental, economic, and human damage. Early detection of both fire and smoke is critical for preventing large-scale disasters.
 
-Early detection of fire and smoke is critical for preventing large-scale forest fires and reducing environmental damage.
+This project develops a Convolutional Neural Network (CNN) from scratch to classify forest-related images into three categories:
 
-The project compares:
+🔥 Fire
 
-- A Baseline CNN  
-- An Improved CNN (with augmentation & regularization)  
-- A CNN architecture variation using GlobalAveragePooling2D  
+🌫 Smoke
 
-Transfer learning was **not used**, as required.
+🌲 Non-Fire
 
----
+The task is a multi-class image classification problem where the model outputs a probability distribution across three classes and predicts the class with the highest probability.
 
-## 👥 Team Contributions
+Transfer learning was intentionally excluded in accordance with the project requirements. The purpose of this constraint was to focus on fundamental CNN design principles, including convolutional feature extraction, pooling strategies, regularization, and generalization behavior. Building the model from scratch allowed direct evaluation of architectural decisions rather than leveraging pretrained weights.
 
-### Aristide Kanamugire
-- Dataset setup and Kaggle integration
-- Data preprocessing and stratified splitting
-- Baseline CNN architecture implementation
-- Training pipeline configuration
-- Feature map visualization
-- Model evaluation metrics (Accuracy, Precision, Recall, F1)
-- Report writing and results interpretation
-  
+Project Objectives
 
-### Vibhor Malik
-- Data exploration and visualization (class distribution, sample images)
-- Improved CNN implementation (augmentation, batch normalization, dropout)
-- Confusion matrix generation and analysis
-- Misclassification analysis
-- CNN architecture variation (GlobalAveragePooling2D)
-  
+Design and train a baseline CNN
 
-Both members collaborated on:
-- Model comparison
-- Result analysis
-- Final report preparation
-- Code testing and debugging
-- README documentation and GitHub organization
+Improve the model using augmentation and regularization
 
----
+Evaluate generalization performance using multiple metrics
 
-## 📂 Dataset
+Compare an architectural variation using GlobalAveragePooling2D
 
-**Source:** Forest Fire, Smoke & Non-Fire Image Dataset (Kaggle)
+Analyze misclassifications and model behavior
 
-Classes:
-- Fire  
-- Smoke  
-- Non-Fire  
+This problem is realistic and challenging because:
 
-### Preprocessing
+Smoke can resemble fog or clouds
 
-- Images resized to **128 × 128**
-- Pixel values normalized to **[0,1]**
-- Stratified split:
-  - 70% Training
-  - 15% Validation
-  - 15% Test
+Fire can appear small or distant
 
----
+Lighting conditions vary significantly
 
-##  Model Architectures
+2️⃣ Dataset Description
 
-### 1️⃣ Baseline CNN
+Source:
+Kaggle – Forest Fire, Smoke & Non-Fire Image Dataset
+https://www.kaggle.com/datasets/amerzishminha/forest-fire-smoke-and-non-fire-image-dataset
 
-- 3 × (Conv2D + ReLU + MaxPooling)
-- Flatten
-- Dense (128)
-- Softmax output (3 classes)
+The dataset is organized into three folders:
 
-No augmentation or regularization.
+Fire/
+Smoke/
+Non-Fire/
+Dataset Characteristics
 
----
+Images vary in resolution
 
-### 2️⃣ Improved CNN
+Classes are slightly imbalanced
 
-Added:
+Visual similarity exists between Smoke and Non-Fire
 
-- Data augmentation (rotation, shift, zoom, flip)
-- Batch Normalization
-- Dropout layers
-- EarlyStopping
-- ReduceLROnPlateau
+Fire intensity and visibility vary across samples
 
-Improves generalization and reduces overfitting.
+Preprocessing
 
----
+All images resized to 128 × 128
 
-### 3️⃣ CNN Architecture Variation (Bonus)
+Pixel values normalized to [0,1]
 
-Replaced:
+Stratified split:
 
-Flatten  
+70% Training
 
-with:
+15% Validation
 
-GlobalAveragePooling2D  
+15% Test
 
-This reduces parameter count and improves stability.
+Random seed fixed at 42 for reproducibility
 
----
+3️⃣ Model Architectures
+3.1 Baseline CNN
 
-## ⚙️ Training Setup
+Architecture:
 
-- Optimizer: Adam
-- Loss: Categorical Crossentropy
-- Metrics:
-  - Accuracy
-  - Precision
-  - Recall
-  - F1-score
-- Early stopping used to prevent overfitting
+3 × (Conv2D + ReLU + MaxPooling)
 
----
+Flatten
 
-## 📈 Results
+Dense (128 neurons)
 
-### Baseline CNN
+Softmax output (3 classes)
 
-- Accuracy: 0.9703
-- Precision: 0.9704
-- Recall: 0.9703
-- F1-score: 0.9703
+No augmentation or regularization applied.
 
-Signs of overfitting observed.
+Purpose:
+Establish a performance baseline.
 
----
+3.2 Improved CNN
 
-### Improved CNN
+Enhancements added:
 
-- Accuracy: 0.9522
-- Precision: 0.9529
-- Recall: 0.9522
-- F1-score: 0.9521
+Data augmentation:
 
-Better validation stability and improved generalization.
+Rotation
 
----
+Horizontal flip
 
-## 📊 Evaluation Included
+Zoom
 
-- Class distribution visualization
-- Sample images
-- Accuracy & loss curves
-- Confusion matrices
-- Model comparison table
-- Misclassified images
-- Feature map visualization
-- Architecture variation experiment
+Width/height shift
 
----
+Batch Normalization
 
-## 🧪 How to Run
+Dropout layers
 
-### Google Colab (Recommended)
+EarlyStopping
 
-1. Upload `kaggle.json`
-2. Install Kaggle API
-3. Download dataset
-4. Run `CNN_Image_Classifier.ipynb`
+ReduceLROnPlateau
 
-Dataset path used:
+Purpose:
+Reduce overfitting and improve generalization.
 
-/root/.cache/kagglehub/datasets/amerzishminha/forest-fire-smoke-and-non-fire-image-dataset/versions/3
+3.3 Architecture Variation (Bonus)
 
----
+Flatten layer replaced with:
 
-### Local Setup
+GlobalAveragePooling2D
 
-Install:
+Advantages:
 
-pip install tensorflow numpy pandas matplotlib seaborn scikit-learn
+Fewer parameters
 
-Run:
+Reduced risk of overfitting
 
+More compact feature representation
+
+Improved training stability
+
+4️⃣ Training Configuration
+
+Optimizer: Adam
+
+Loss: Categorical Crossentropy
+
+Metrics:
+
+Accuracy
+
+Precision
+
+Recall
+
+F1-score
+
+Callbacks:
+
+EarlyStopping
+
+ReduceLROnPlateau
+
+5️⃣ Results Summary (Required by Rubric)
+🔎 Quantitative Performance
+Model	Accuracy	Precision	Recall	F1-score
+Baseline CNN	0.9703	0.9704	0.9703	0.9703
+Improved CNN	0.9522	0.9529	0.9522	0.9521
+Final Model Selection Justification
+
+Although the Baseline CNN achieved higher test accuracy (97.03%), it showed clear overfitting:
+
+Larger gap between training and validation performance
+
+Validation loss less stable
+
+More sensitivity to subtle class variations
+
+The Improved CNN achieved 95.23% accuracy but demonstrated:
+
+Smaller training–validation gap
+
+More stable validation curves
+
+Better separation between Smoke and Non-Fire
+
+Improved robustness to real-world variability
+
+Since real-world fire detection requires strong generalization rather than maximum training accuracy, the Improved CNN is selected as the final model.
+
+6️⃣ Confusion Matrix & Error Analysis
+Observed Misclassification Patterns
+
+Thin smoke mistaken for fog/clouds
+
+Small distant flames misclassified as Non-Fire
+
+Bright reflections occasionally mistaken for Fire
+
+The Improved CNN reduced confusion between Smoke and Non-Fire compared to the baseline.
+
+7️⃣ Sample Predictions (Included in Repository)
+
+Example outputs stored in the /images folder:
+
+✅ Correct Fire classification
+
+✅ Correct Smoke classification
+
+✅ Correct Non-Fire classification
+
+❌ Example misclassification
+
+These visual examples allow manual inspection of model behavior.
+
+8️⃣ Setup & Running Instructions (Reproducible)
+🔹 Step 1 – Clone Repository
+git clone https://github.com/vs98108/mini-project-5.git
+cd mini-project-5
+🔹 Step 2 – Install Dependencies
+pip install -r requirements.txt
+🔹 Step 3 – Download Dataset
+
+Go to:
+https://www.kaggle.com/datasets/amerzishminha/forest-fire-smoke-and-non-fire-image-dataset
+
+Download and extract into:
+
+mini-project-5/data/
+├── Fire/
+├── Smoke/
+└── Non-Fire/
+🔹 Step 4 – Run Notebook
 jupyter notebook CNN_Image_Classifier.ipynb
 
----
+Run all cells from top to bottom.
 
-## 📁 Repository Structure
-
+9️⃣ Repository Structure
 mini-project-5/
 │
 ├── CNN_Image_Classifier.ipynb
-└── README.md
+├── requirements.txt
+├── README.md
+├── .gitignore
+└── images/
+🔟 Dependencies (requirements.txt)
+tensorflow
+numpy
+pandas
+matplotlib
+scikit-learn
+seaborn
+1️⃣1️⃣ .gitignore
+data/
+*.h5
+*.ckpt
+__pycache__/
+.ipynb_checkpoints/
+1️⃣2️⃣ Team Member Contributions
+Aristide Kanamugire
 
----
+Dataset preprocessing and stratified splitting
 
-## 🎯 Learning Outcomes
+Baseline CNN implementation
 
-- Designed CNN from scratch
-- Applied augmentation & regularization
-- Evaluated using multiple metrics
-- Compared architectures
-- Analyzed confusion matrices
-- Visualized feature maps
-- Implemented architecture variation
+Training pipeline configuration
 
----
+Metric evaluation (Accuracy, Precision, Recall, F1)
 
-## 📚 References
+Feature map visualization
 
-- Kaggle Dataset  
-  https://www.kaggle.com/datasets/amerzishminha/forest-fire-smoke-and-non-fire-image-dataset  
+Report writing and interpretation
 
-- TensorFlow Documentation  
-  https://www.tensorflow.org/api_docs  
+Vibhor Malik
 
+Data exploration and visualization
 
----
+Improved CNN implementation
 
-COMP-9130 – Applied Artificial Intelligence  
-Mini Project 5
+Augmentation and regularization
+
+Confusion matrix generation
+
+Misclassification analysis
+
+Architecture variation using GlobalAveragePooling2D
+
+Both Members
+
+Model comparison
+
+Debugging
+
+Repository organization
+
+Documentation and README preparation
+
+1️⃣3️⃣ Learning Outcomes
+
+Designed CNN architecture from scratch
+
+Applied augmentation and regularization
+
+Evaluated models using multiple metrics
+
+Performed misclassification analysis
+
+Visualized learned features
+
+Compared architectural variants
+
+Improved model generalization
+
+1️⃣4️⃣ References
+
+Kaggle Dataset:
+https://www.kaggle.com/datasets/amerzishminha/forest-fire-smoke-and-non-fire-image-dataset
+
+TensorFlow Documentation:
+https://www.tensorflow.org/api_docs
