@@ -7,9 +7,9 @@ Dataset Option B: Forest Fire, Smoke & Non-Fire Classification
 🔗 GitHub Repository:
 https://github.com/vs98108/mini-project-5
 
-1️⃣ Problem Description & Motivation
+📌 1. Problem Description & Motivation
 
-Forest fires cause severe environmental, economic, and human damage. Early detection of both fire and smoke is critical for preventing large-scale disasters.
+Forest fires cause severe environmental destruction, economic loss, and risk to human life. Early detection of both fire and smoke is essential for preventing large-scale disasters.
 
 This project develops a Convolutional Neural Network (CNN) from scratch to classify forest-related images into three categories:
 
@@ -19,58 +19,58 @@ This project develops a Convolutional Neural Network (CNN) from scratch to class
 
 🌲 Non-Fire
 
-The task is a multi-class image classification problem where the model outputs a probability distribution across three classes and predicts the class with the highest probability.
+The task is a multi-class image classification problem, where the model outputs a probability distribution across three classes and predicts the class with the highest probability.
 
-Transfer learning was intentionally excluded in accordance with the project requirements. The purpose of this constraint was to focus on fundamental CNN design principles, including convolutional feature extraction, pooling strategies, regularization, and generalization behavior. Building the model from scratch allowed direct evaluation of architectural decisions rather than leveraging pretrained weights.
+🎯 Project Objectives
 
-Project Objectives
+Design a baseline CNN architecture
 
-Design and train a baseline CNN
+Improve performance using augmentation and regularization
 
-Improve the model using augmentation and regularization
+Compare generalization performance across models
 
-Evaluate generalization performance using multiple metrics
-
-Compare an architectural variation using GlobalAveragePooling2D
+Evaluate an architectural variation using GlobalAveragePooling2D
 
 Analyze misclassifications and model behavior
 
-This problem is realistic and challenging because:
+ Transfer Learning Constraint
 
-Smoke can resemble fog or clouds
+Transfer learning was intentionally excluded in accordance with the project requirements. The purpose of this constraint was to focus on fundamental CNN design principles, including convolutional feature extraction, pooling strategies, regularization, and generalization behavior. Building the model from scratch allowed direct evaluation of architectural decisions rather than leveraging pretrained weights.
 
-Fire can appear small or distant
+Although transfer learning is widely used in industry for computer vision tasks, this project emphasizes architectural understanding and core deep learning concepts.
 
-Lighting conditions vary significantly
-
-2️⃣ Dataset Description
+📂 2. Dataset Description
 
 Source:
 Kaggle – Forest Fire, Smoke & Non-Fire Image Dataset
 https://www.kaggle.com/datasets/amerzishminha/forest-fire-smoke-and-non-fire-image-dataset
 
-The dataset is organized into three folders:
+The dataset contains three folders:
 
 Fire/
 Smoke/
 Non-Fire/
-Dataset Characteristics
+📊 Dataset Characteristics
 
 Images vary in resolution
 
 Classes are slightly imbalanced
 
-Visual similarity exists between Smoke and Non-Fire
+Smoke and Non-Fire images can be visually similar
 
-Fire intensity and visibility vary across samples
+Fire may appear small or distant in some cases
 
-Preprocessing
+Lighting and environmental conditions vary significantly
 
-All images resized to 128 × 128
+These characteristics make the classification task non-trivial and realistic.
 
-Pixel values normalized to [0,1]
+🧹 Preprocessing Steps
 
-Stratified split:
+Images resized to 128 × 128
+
+Pixel values normalized to [0, 1]
+
+Stratified data split:
 
 70% Training
 
@@ -80,8 +80,8 @@ Stratified split:
 
 Random seed fixed at 42 for reproducibility
 
-3️⃣ Model Architectures
-3.1 Baseline CNN
+ 3. Model Architectures
+🔹 3.1 Baseline CNN
 
 Architecture:
 
@@ -91,14 +91,12 @@ Flatten
 
 Dense (128 neurons)
 
-Softmax output (3 classes)
-
-No augmentation or regularization applied.
+Softmax output layer (3 classes)
 
 Purpose:
-Establish a performance baseline.
+Establish a reference performance benchmark without augmentation or regularization.
 
-3.2 Improved CNN
+🔹 3.2 Improved CNN
 
 Enhancements added:
 
@@ -121,9 +119,9 @@ EarlyStopping
 ReduceLROnPlateau
 
 Purpose:
-Reduce overfitting and improve generalization.
+Reduce overfitting and improve generalization to unseen images.
 
-3.3 Architecture Variation (Bonus)
+🔹 3.3 Architecture Variation (Bonus)
 
 Flatten layer replaced with:
 
@@ -131,21 +129,21 @@ GlobalAveragePooling2D
 
 Advantages:
 
-Fewer parameters
+Fewer trainable parameters
 
 Reduced risk of overfitting
 
-More compact feature representation
+More compact spatial feature representation
 
 Improved training stability
 
-4️⃣ Training Configuration
+⚙️ 4. Training Configuration
 
 Optimizer: Adam
 
-Loss: Categorical Crossentropy
+Loss Function: Categorical Crossentropy
 
-Metrics:
+Evaluation Metrics:
 
 Accuracy
 
@@ -161,59 +159,59 @@ EarlyStopping
 
 ReduceLROnPlateau
 
-5️⃣ Results Summary (Required by Rubric)
-🔎 Quantitative Performance
+📊 5. Results Summary
+🔎 Quantitative Model Performance
 Model	Accuracy	Precision	Recall	F1-score
 Baseline CNN	0.9703	0.9704	0.9703	0.9703
 Improved CNN	0.9522	0.9529	0.9522	0.9521
 Final Model Selection Justification
 
-Although the Baseline CNN achieved higher test accuracy (97.03%), it showed clear overfitting:
+Although the Baseline CNN achieved higher raw test accuracy (97.03%), it demonstrated clear overfitting:
 
-Larger gap between training and validation performance
+Larger training–validation performance gap
 
-Validation loss less stable
+Less stable validation loss
 
-More sensitivity to subtle class variations
+Higher sensitivity to subtle class similarities
 
-The Improved CNN achieved 95.23% accuracy but demonstrated:
+The Improved CNN achieved 95.23% accuracy, but demonstrated:
 
-Smaller training–validation gap
+Smaller train–validation gap
 
 More stable validation curves
 
-Better separation between Smoke and Non-Fire
+Reduced confusion between Smoke and Non-Fire
 
-Improved robustness to real-world variability
+Better robustness to image variability
 
-Since real-world fire detection requires strong generalization rather than maximum training accuracy, the Improved CNN is selected as the final model.
+Since real-world fire detection systems prioritize reliability and generalization over peak training accuracy, the Improved CNN is selected as the final model.
 
-6️⃣ Confusion Matrix & Error Analysis
-Observed Misclassification Patterns
+📉 6. Confusion Matrix & Error Analysis
+🔍 Observed Misclassification Patterns
 
-Thin smoke mistaken for fog/clouds
+Thin smoke misclassified as fog/clouds
 
 Small distant flames misclassified as Non-Fire
 
 Bright reflections occasionally mistaken for Fire
 
-The Improved CNN reduced confusion between Smoke and Non-Fire compared to the baseline.
+The improved model reduced confusion between Smoke and Non-Fire compared to the baseline.
 
-7️⃣ Sample Predictions (Included in Repository)
+🖼 7. Sample Predictions
 
-Example outputs stored in the /images folder:
+Example outputs stored in the /images folder include:
 
-✅ Correct Fire classification
+✅ Correct Fire prediction
 
-✅ Correct Smoke classification
+✅ Correct Smoke prediction
 
-✅ Correct Non-Fire classification
+✅ Correct Non-Fire prediction
 
 ❌ Example misclassification
 
-These visual examples allow manual inspection of model behavior.
+These examples allow visual inspection of learned feature behavior.
 
-8️⃣ Setup & Running Instructions (Reproducible)
+🧪 8. Setup & Running Instructions
 🔹 Step 1 – Clone Repository
 git clone https://github.com/vs98108/mini-project-5.git
 cd mini-project-5
@@ -221,10 +219,10 @@ cd mini-project-5
 pip install -r requirements.txt
 🔹 Step 3 – Download Dataset
 
-Go to:
+Visit:
 https://www.kaggle.com/datasets/amerzishminha/forest-fire-smoke-and-non-fire-image-dataset
 
-Download and extract into:
+Extract dataset into:
 
 mini-project-5/data/
 ├── Fire/
@@ -233,9 +231,9 @@ mini-project-5/data/
 🔹 Step 4 – Run Notebook
 jupyter notebook CNN_Image_Classifier.ipynb
 
-Run all cells from top to bottom.
+Run all cells sequentially.
 
-9️⃣ Repository Structure
+📦 9. Repository Structure
 mini-project-5/
 │
 ├── CNN_Image_Classifier.ipynb
@@ -243,20 +241,20 @@ mini-project-5/
 ├── README.md
 ├── .gitignore
 └── images/
-🔟 Dependencies (requirements.txt)
+📋 10. Dependencies (requirements.txt)
 tensorflow
 numpy
 pandas
 matplotlib
 scikit-learn
 seaborn
-1️⃣1️⃣ .gitignore
+11. .gitignore
 data/
 *.h5
 *.ckpt
 __pycache__/
 .ipynb_checkpoints/
-1️⃣2️⃣ Team Member Contributions
+👥 12. Team Member Contributions
 Aristide Kanamugire
 
 Dataset preprocessing and stratified splitting
@@ -277,7 +275,7 @@ Data exploration and visualization
 
 Improved CNN implementation
 
-Augmentation and regularization
+Data augmentation and regularization
 
 Confusion matrix generation
 
@@ -295,23 +293,23 @@ Repository organization
 
 Documentation and README preparation
 
-1️⃣3️⃣ Learning Outcomes
+🎓 13. Learning Outcomes
 
 Designed CNN architecture from scratch
 
-Applied augmentation and regularization
+Applied augmentation and regularization techniques
 
-Evaluated models using multiple metrics
+Evaluated models using multiple performance metrics
 
 Performed misclassification analysis
 
-Visualized learned features
+Visualized learned convolutional features
 
 Compared architectural variants
 
-Improved model generalization
+Improved generalization performance
 
-1️⃣4️⃣ References
+📚 14. References
 
 Kaggle Dataset:
 https://www.kaggle.com/datasets/amerzishminha/forest-fire-smoke-and-non-fire-image-dataset
